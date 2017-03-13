@@ -1,4 +1,21 @@
 {
-    "memo": "",
-    "projects": []
+    "memo": "f8a1eb379ccadf0f38162b6e388b26cf1d132d4dc7082d06df7bb6c2a1b0bfd0",
+    "projects": [
+        {
+            "name": "github.com/h2non/gock",
+            "version": "v1.0.4",
+            "revision": "2897ffde93a71060ce86518f1e7317ec8433d2d6",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/pkg/errors",
+            "version": "v0.8.0",
+            "revision": "645ef00459ed84a119197bfb8d8205042c6df63d",
+            "packages": [
+                "."
+            ]
+        }
+    ]
 }

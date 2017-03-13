@@ -17,7 +17,7 @@ bin/$(NAME): $(SRCS)
 ci-test:
 	echo "" > coverage.txt
 	set -e; \
-	for d in `glide novendor`; do \
+	for d in $(NOVENDOR); do \
 		go test -coverprofile=profile.out -covermode=atomic -v $$d; \
 		if [ -f profile.out ]; then \
 			cat profile.out >> coverage.txt; \
@@ -69,4 +69,4 @@ release:
 
 .PHONY: test
 test:
-	go test -cover -v `glide novendor`
+	go test -cover -v $(NOVENDOR)
