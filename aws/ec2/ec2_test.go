@@ -1,4 +1,4 @@
-package aws
+package ec2
 
 import (
 	"io/ioutil"
@@ -7,7 +7,7 @@ import (
 )
 
 func TestParseEC2PriceListCSV(t *testing.T) {
-	body, err := ioutil.ReadFile(filepath.Join("..", "testdata", "ec2.csv"))
+	body, err := ioutil.ReadFile(filepath.Join("..", "..", "testdata", "ec2.csv"))
 	if err != nil {
 		t.Fatalf("failed to open testdata: %s", err)
 	}
