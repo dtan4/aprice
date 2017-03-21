@@ -46,7 +46,7 @@ ifeq ($(shell command -v dep 2> /dev/null),)
 endif
 
 .PHONY: deps
-deps: glide
+deps: dep
 	dep ensure
 
 .PHONY: dist
