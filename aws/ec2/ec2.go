@@ -15,6 +15,11 @@ const (
 // ParseEC2PriceListCSV converts EC2 price list CSV to Go object
 func ParseEC2PriceListCSV(body string) ([]string, [][]string, error) {
 	lines := strings.Split(body, "\n")
+
+	if len(lines) < metadataLineCount {
+		return []string{}, [][]string{}, errors.Errorf("invalid csv: %q\n", body)
+	}
+
 	bodyWithoutMetadata := strings.Join(lines[metadataLineCount:], "\n")
 	reader := csv.NewReader(strings.NewReader(bodyWithoutMetadata))
 
