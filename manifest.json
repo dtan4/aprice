@@ -3,6 +3,9 @@
         "github.com/cheggaaa/pb": {
             "version": "^1.0.10"
         },
+        "github.com/cznic/ql": {
+            "version": "^1.1.0"
+        },
         "github.com/h2non/gock": {
             "version": "^1.0.4"
         },
