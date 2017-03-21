@@ -7,12 +7,12 @@ import (
 	"github.com/pkg/errors"
 )
 
-// New opens database file and create DB object
+// New opens database file and return new database connection
 func New(filename string) (*sql.DB, error) {
-	db, err := sql.Open("ql", filename)
+	conn, err := sql.Open("ql", filename)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to open database file")
 	}
 
-	return db, nil
+	return conn, nil
 }
