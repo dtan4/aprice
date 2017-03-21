@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-// RetrievePriceList downloads price list CSV
+// RetrievePriceListCSV downloads price list CSV
 func RetrievePriceListCSV(service string) (string, error) {
 	url := priceListCSVURL(service)
 
