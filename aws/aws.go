@@ -8,6 +8,11 @@ import (
 	"github.com/pkg/errors"
 )
 
+const (
+	// EC2Service represents EC2 service name
+	EC2Service = "AmazonEC2"
+)
+
 // RetrievePriceListCSV downloads price list CSV
 func RetrievePriceListCSV(service string) (string, error) {
 	url := priceListCSVURL(service)
