@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -46,5 +47,42 @@ func TestImportPriceList(t *testing.T) {
 
 	if count != expected {
 		t.Errorf("wrong row count, expected: %d, got: %d", expected, count)
+	}
+}
+
+func TestTableExists(t *testing.T) {
+	tmpfile, err := ioutil.TempFile("", "TestTableExists")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(tmpfile.Name())
+
+	db, err := NewSQLite3Client(tmpfile.Name())
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	table := "aprice_price_list"
+
+	exists1, err := db.TableExists(table)
+	if err != nil {
+		t.Errorf("got error: %s", err)
+	}
+
+	if exists1 {
+		t.Errorf("table %s should not exist", table)
+	}
+
+	if _, err := db.db.Exec(fmt.Sprintf(`create table %s ("SKU","OfferTermCode","RateCode","TermType");`, table)); err != nil {
+		t.Error(err)
+	}
+
+	exists2, err := db.TableExists(table)
+	if err != nil {
+		t.Errorf("got error: %s", err)
+	}
+
+	if exists2 {
+		t.Errorf("table %s should exist", table)
 	}
 }
