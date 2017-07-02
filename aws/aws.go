@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/cheggaaa/pb"
 	"github.com/pkg/errors"
+	"gopkg.in/cheggaaa/pb.v1"
 )
 
 const (

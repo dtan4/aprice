@@ -42,12 +42,12 @@ cross-build: deps
 .PHONY: dep
 dep:
 ifeq ($(shell command -v dep 2> /dev/null),)
-	go get -u -v github.com/golang/dep/...
+	go get -u -v github.com/golang/dep/cmd/dep
 endif
 
 .PHONY: deps
 deps: dep
-	dep ensure
+	dep ensure -v
 
 .PHONY: dist
 dist:
