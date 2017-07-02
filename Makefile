@@ -47,7 +47,7 @@ endif
 
 .PHONY: deps
 deps: dep
-	dep ensure
+	dep ensure -v
 
 .PHONY: dist
 dist:
