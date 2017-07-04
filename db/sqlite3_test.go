@@ -114,7 +114,7 @@ func TestTableExists(t *testing.T) {
 		t.Errorf("got error: %s", err)
 	}
 
-	if exists2 {
+	if !exists2 {
 		t.Errorf("table %s should exist", table)
 	}
 }

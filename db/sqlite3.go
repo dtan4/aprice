@@ -78,7 +78,7 @@ func (c *SQLite3Client) ImportPriceList(table string, header []string, records [
 func (c *SQLite3Client) TableExists(table string) (bool, error) {
 	// https://github.com/mattn/go-sqlite3/blob/8a4c825cfc99b620bd78dbeac30348782a3b3eb9/backup_test.go#L206-L214
 	var exists bool
-	if err := c.db.QueryRow("SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = '?' LIMIT 1) AS test_table_exists", table).Scan(&exists); err != nil {
+	if err := c.db.QueryRow("SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ? LIMIT 1) AS test_table_exists", table).Scan(&exists); err != nil {
 		return false, errors.Wrap(err, "failed to check table existence")
 	}
 
