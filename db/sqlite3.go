@@ -27,6 +27,22 @@ func NewSQLite3Client(filename string) (*SQLite3Client, error) {
 	}, nil
 }
 
+// CreateTable creates the given table
+func (c *SQLite3Client) CreateTable(table string, header []string) error {
+	headerValues := []string{}
+	for _, h := range header {
+		headerValues = append(headerValues, strconv.Quote(h))
+	}
+
+	query := fmt.Sprintf(`create table %s (%s);`, table, strings.Join(headerValues, ", "))
+
+	if _, err := c.db.Exec(query); err != nil {
+		return errors.Wrap(err, "failed to create table")
+	}
+
+	return nil
+}
+
 // ImportPriceList imports price list to database
 func (c *SQLite3Client) ImportPriceList(table string, header []string, records [][]string) error {
 	headerValues := []string{}

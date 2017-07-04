@@ -7,6 +7,38 @@ import (
 	"testing"
 )
 
+func TestCreateTable(t *testing.T) {
+	tmpfile, err := ioutil.TempFile("", "TestCreateTable")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(tmpfile.Name())
+
+	db, err := NewSQLite3Client(tmpfile.Name())
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	table := "aprice_price_list"
+	header := []string{
+		"SKU", "OfferTermCode", "RateCode", "TermType",
+	}
+
+	if err := db.CreateTable(table, header); err != nil {
+		t.Errorf("got error: %s", err)
+	}
+
+	// https://github.com/mattn/go-sqlite3/blob/8a4c825cfc99b620bd78dbeac30348782a3b3eb9/backup_test.go#L206-L214
+	var exists bool
+	if err := db.db.QueryRow("SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ? LIMIT 1) AS test_table_exists", table).Scan(&exists); err != nil {
+		t.Error(err)
+	}
+
+	if !exists {
+		t.Errorf("table %s does not exist", table)
+	}
+}
+
 func TestImportPriceList(t *testing.T) {
 	tmpfile, err := ioutil.TempFile("", "TestImportPriceList")
 	if err != nil {
