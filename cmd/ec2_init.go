@@ -18,7 +18,7 @@ const (
 
 // ec2InitCmd represents the ec2 init command
 var ec2InitCmd = &cobra.Command{
-	Use:   "ec2 init",
+	Use:   "init",
 	Short: "Initialize for EC2 price list",
 	RunE:  doEC2Init,
 }
