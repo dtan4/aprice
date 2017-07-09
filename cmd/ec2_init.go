@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"path/filepath"
 
 	"github.com/dtan4/aprice/aws"
 	"github.com/dtan4/aprice/aws/ec2"
@@ -11,9 +12,8 @@ import (
 )
 
 const (
-	// TODO: use absolute path
-	dbFilename = "aprice.db"
-	table      = "aprice_price_list"
+	dbname = "ec2.db"
+	table  = "aprice_price_list"
 )
 
 // ec2InitCmd represents the ec2 init command
@@ -38,7 +38,7 @@ func doEC2Init(cmd *cobra.Command, args []string) error {
 		return errors.Wrap(err, "failed to parse EC2 price list CSV")
 	}
 
-	d, err := db.NewSQLite3Client(dbFilename)
+	d, err := db.NewSQLite3Client(filepath.Join(apriceDir, dbname))
 	if err != nil {
 		return errors.Wrap(err, "failed to initialize SQLite3 client")
 	}

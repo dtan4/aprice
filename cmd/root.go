@@ -3,12 +3,19 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
+	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 )
 
+const (
+	defaultApriceDirBase = ".aprice"
+)
+
 var (
-	debug bool
+	apriceDir string
+	debug     bool
 )
 
 // RootCmd represents the base command when called without any subcommands
@@ -34,9 +41,33 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
+	RootCmd.PersistentFlags().StringVar(&apriceDir, "aprice-dir", "", "aprice data directory (default: ~/.aprice)")
 	RootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "debug mode")
 }
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+	if apriceDir == "" {
+		home, err := homedir.Dir()
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+
+		apriceDir = filepath.Join(home, defaultApriceDirBase)
+	} else {
+		expanded, err := homedir.Expand(apriceDir)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+
+		abs, err := filepath.Abs(expanded)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+
+		apriceDir = abs
+	}
 }
