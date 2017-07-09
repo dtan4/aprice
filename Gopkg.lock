@@ -8,6 +8,12 @@
   version = "v1.0.4"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/inconshreveable/mousetrap"
+  packages = ["."]
+  revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
+
+[[projects]]
   name = "github.com/mattn/go-runewidth"
   packages = ["."]
   revision = "9e777a8366cce605130a531d2cd6363d07ad7317"
@@ -27,6 +33,18 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/spf13/cobra"
+  packages = ["."]
+  revision = "8c6fa02d2225de0f9bdcb7ca912556f68d172d8c"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/spf13/pflag"
+  packages = ["."]
+  revision = "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/net"
   packages = ["context"]
   revision = "1f9224279e98554b6a6432d4dd998a739f8b2b7c"
@@ -40,6 +58,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "63cf7f555fafd49e7f4c1c599acc8938ac8e9f43e26897e1fc8268951a7084b6"
+  inputs-digest = "0670002761ecf3b554707716630e53b86b7743ef814ea5aa76bfd8aad3cd54f3"
   solver-name = "gps-cdcl"
   solver-version = 1
