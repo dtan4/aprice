@@ -2,10 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 
 	"github.com/dtan4/aprice/aws"
 	"github.com/dtan4/aprice/aws/ec2"
+	"github.com/dtan4/aprice/cmd/util"
 	"github.com/dtan4/aprice/db"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -24,6 +26,19 @@ var ec2InitCmd = &cobra.Command{
 }
 
 func doEC2Init(cmd *cobra.Command, args []string) error {
+	dirExists, err := util.DirExists(apriceDir)
+	if err != nil {
+		return errors.Wrapf(err, "failed to check whether %q exists or not", apriceDir)
+	}
+
+	if !dirExists {
+		fmt.Printf("===> creating aprice data directory %q...\n", apriceDir)
+
+		if err := os.MkdirAll(apriceDir, 0755); err != nil {
+			return errors.Wrapf(err, "failed to create %q", apriceDir)
+		}
+	}
+
 	fmt.Println("===> retrieving price list...")
 
 	csv, err := aws.RetrievePriceListCSV(aws.EC2Service, true)
