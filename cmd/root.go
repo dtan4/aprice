@@ -9,6 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	debug bool
+)
+
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Use:   "aprice",
@@ -19,13 +23,20 @@ var RootCmd = &cobra.Command{
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(-1)
+		if debug {
+			fmt.Fprintf(os.Stderr, "%+v\n", err)
+		} else {
+			fmt.Fprintln(os.Stderr, err)
+		}
+
+		os.Exit(1)
 	}
 }
 
 func init() {
 	cobra.OnInitialize(initConfig)
+
+	RootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "debug mode")
 }
 
 // initConfig reads in config file and ENV variables if set.
