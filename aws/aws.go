@@ -38,6 +38,7 @@ func RetrievePriceListCSV(service string, showProgress bool) (string, error) {
 		bar := pb.New(i).SetUnits(pb.U_BYTES).SetRefreshRate(10 * time.Millisecond)
 		bar.ShowSpeed = true
 		bar.Start()
+		defer bar.Finish()
 
 		reader = bar.NewProxyReader(resp.Body)
 	} else {
